@@ -11,8 +11,18 @@ level = "DEBUG"
 [entryPoints.web]
 address = ":80"
 
-#[entryPoints.websecure]
-#address = ":443"
+[entryPoints.websecure]
+address = ":443"
+
+
+[certificatesResolvers.le.acme]
+email = "admin@example.com"
+storage = "/etc/traefik/acme.json"
+# Default: "https://acme-v02.api.letsencrypt.org/directory"
+#caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
+[certificatesResolvers.le.acme.httpChallenge]
+# used during the challenge
+entryPoint = "web"
 
 [api]
 

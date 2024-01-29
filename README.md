@@ -4,8 +4,25 @@ Finding the best practice of edge routing with docker swarm &amp; traefik.
 
 ## Run
 
+* http://localhost
+
 ```
-docker compose -p router -f compose.yaml up -d
+docker compose -p router -f compose.http.yaml up -d
+```
+
+
+* https://localhost
+
+```
+docker compose -p router -f compose.https.yaml up -d
+```
+
+* https://localhost (basic auth)
+
+```
+docker compose -p router \
+  -f compose.https.yaml up \
+  -f basic-auth/compose.dashboard.yaml -d
 ```
 
 ## Init
@@ -22,13 +39,6 @@ docker compose -p router -f compose.yaml up -d
 
 ## Config
 
-* TODO
+`config/traefik.toml` is default config in container `/etc/traefik`
 
-## Memo:
-
-pattern
-
-* Traefik
-  * Dashboard
-* Place(Domain)
-  * Local,Server
+Other settings could see `sample/` this repo. 
