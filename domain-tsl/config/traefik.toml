@@ -62,4 +62,4 @@ network = "traefik-public"
 #exposedByDefault = false
 
 # Default use overlay network
-network = "proxy-net"
+#network = "proxy-net"

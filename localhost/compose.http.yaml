@@ -6,17 +6,17 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./config/traefik.toml:/etc/traefik/traefik.toml
-    ports:
-      - "80:80"
-    restart: unless-stopped
+    restart: always
     networks:
       - traefik-public
       - proxy-net
     labels:
       - traefik.enable=true
-      - traefik.http.routers.traefik-public.rule=Host(`localhost`)
       - traefik.http.routers.traefik-public.entrypoints=web
-      - traefik.http.routers.traefik-public.service=api@internal
+      - traefik.http.routers.traefik-public.rule=Host(`localhost`)
+      - traefik.tcp.routers.proxy.rule=Host(`localhost`)
+      - traefik.tcp.routers.proxy.service=api@internal
+      #- traefik.tcp.services.router_proxy.loadbalancer.server.port=8080
 
 networks:
   traefik-public:
