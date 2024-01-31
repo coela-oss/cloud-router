@@ -7,10 +7,11 @@ sendAnonymousUsage = false
 # Default: "ERROR"
 level = "DEBUG"
 
+[accessLog]
+
 [entryPoints]
 [entryPoints.web]
 address = ":80"
-
 #[entryPoints.websecure]
 #address = ":443"
 
@@ -21,23 +22,6 @@ insecure = true
 
 # Default: true
 # dashboard = false
-
-#[providers.file]
-#directory = "dynamic"
-#watch = true
-
-[providers.docker]
-# Default: "unix:///var/run/docker.sock"
-# TODO socket protection 
-#endpoint = "tcp://172.0.0.1:2377"
-# Default: "Host(`{{ normalize .Name }}`)"
-#defaultRule = "Host(`{{ normalize .Name }}.docker.localhost`)"
-
-# Default: true
-#exposedByDefault = false
-
-# Default use bridge network
-network = "traefik-public"
 
 [providers.swarm]
 
@@ -52,4 +36,4 @@ network = "traefik-public"
 #exposedByDefault = false
 
 # Default use overlay network
-network = "proxy-net"
+#network = "proxy-net"

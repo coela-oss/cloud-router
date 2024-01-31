@@ -1,0 +1,5 @@
+[http]
+[http.routers.dashboard]
+entryPoints = ["traefik"]
+rule = "HOST(`localhost`)"
+service = "api@internal"

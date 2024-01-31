@@ -7,25 +7,22 @@ sendAnonymousUsage = false
 # Default: "ERROR"
 level = "DEBUG"
 
+[accessLog]
+
 [entryPoints]
 [entryPoints.web]
 address = ":80"
-
-[entryPoints.websecure]
-address = ":443"
-
-# Already use
+#[entryPoints.websecure]
+#address = ":443"
+# Already defined by traefik internal
 #[entryPoints.treafik]
 #address = ":8080"
-
-[certificatesResolvers.le.acme]
-email = "admin@example.com"
-storage = "/etc/traefik/acme.json"
-# Default: "https://acme-v02.api.letsencrypt.org/directory"
-#caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
-[certificatesResolvers.le.acme.httpChallenge]
-# used during the challenge
-entryPoint = "web"
+[entryPoints.whoami]
+address = ":81"
+#[entryPoints.swarmpit]
+#address = ":82"
+[entryPoints.portainer]
+address = ":83"
 
 [api]
 
@@ -35,9 +32,9 @@ insecure = true
 # Default: true
 # dashboard = false
 
-#[providers.file]
-#directory = "dynamic"
-#watch = true
+[providers.file]
+directory = "/etc/traefik/dynamic"
+watch = true
 
 [providers.docker]
 # Default: "unix:///var/run/docker.sock"
@@ -47,7 +44,7 @@ insecure = true
 #defaultRule = "Host(`{{ normalize .Name }}.docker.localhost`)"
 
 # Default: true
-#exposedByDefault = false
+exposedByDefault = false
 
 # Default use bridge network
 network = "traefik-public"
@@ -62,7 +59,7 @@ network = "traefik-public"
 #defaultRule = "Host(`{{ normalize .Name }}.docker.localhost`)"
 
 # Default: true
-#exposedByDefault = false
+exposedByDefault = false
 
 # Default use overlay network
-#network = "proxy-net"
+network = "proxy-net"

@@ -1,0 +1,6 @@
+[http]
+[http.routers]
+[http.routers.whoami]
+entryPoints = ["whoami"]
+rule = "HOST(`localhost`)"
+service = "sample-whoami@swarm"

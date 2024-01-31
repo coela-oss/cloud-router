@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  traefik:
+    image: "coelaoss/traefik-v3.0.0-beta5:debian"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    command:
+      - --entrypoints.web.address=:80
+      #- --entrypoints.websecure.address=:443
+      - --providers.swarm=true
+      #- --providers.docker.swarmMode=true
+      - --providers.swarm.exposedbydefault=false
+      - --providers.swarm.network=proxy-net
+      - --api
+      - --api.insecure
+      - --log.level=DEBUG
+    networks:
+      - proxy-net
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      #- ./config:/etc/traefik
+    deploy:
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.http-catchall.rule=HostRegexp(`{host:.+}`)
+        - traefik.http.routers.http-catchall.entrypoints=web
+        - traefik.http.routers.router-traefik.entrypoints=traefik
+        - traefik.http.routers.router-traefik.rule=HOST(`localhost`)
+        - traefik.http.routers.router-traefik.service=api@internal
+        - traefik.http.services.router-traefik.loadbalancer.server.port=8080
+
+volumes:
+  portainer_data:
+
+
+networks:
+  proxy-net:
+    external: true

@@ -1,0 +1,22 @@
+[http]
+[http.routers]
+[http.routers.swarmpit]
+entryPoints = ["swarmpit"]
+rule = "HOST(`localhost`)"
+service = "swarmpit-app@swarm"
+
+# https://doc.traefik.io/traefik/routing/routers/
+[tcp.routers.swarmpit-db]
+entryPoints = ["swarmpit"]
+rule = "HostSNI(`*`)"
+service = "swarmpit-db@swarm"
+
+[tcp.routers.swarmpit-influxdb]
+entryPoints = ["swarmpit"]
+rule = "HostSNI(`*`)"
+service = "swarmpit-influxdb@swarm"
+
+[tcp.routers.swarmpit-agent]
+entryPoints = ["swarmpit"]
+rule = "HostSNI(`*`)"
+service = "swarmpit-agent@swarm"

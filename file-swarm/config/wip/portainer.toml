@@ -1,0 +1,17 @@
+[http]
+[http.routers]
+[http.routers.portainer]
+entryPoints = ["portainer"]
+rule = "HOST(`localhost`)"
+service = "portainer@swarm"
+[http.routers.portainer-edge]
+entryPoints = ["portainer"]
+rule = "HOST(`localhost`)"
+service = "portainer-edge@swarm"
+
+# https://doc.traefik.io/traefik/routing/routers/
+
+#[http.routers.portainer-agent]
+#entryPoints = ["portainer"]
+#rule = "HostSNI(`*`)"
+#service = "portainer-agent@swarm"

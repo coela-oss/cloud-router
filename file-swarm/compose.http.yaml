@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  proxy:
+    image: coelaoss/traefik-v3.0.0-beta5:debian
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./config:/etc/traefik
+    ports:
+      # Sync config/traefik.toml entrypoints
+      - "80:80"
+      - "81:81"
+      - "82:82"
+      - "83:83"
+      - "8080:8080"
+    restart: always
+    networks:
+      - traefik-public
+      - proxy-net
+    labels:
+      - traefik.enable=true
+
+networks:
+  traefik-public:
+    external: true
+  proxy-net:
+    external: true

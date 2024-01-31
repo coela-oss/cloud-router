@@ -2,43 +2,20 @@
 
 Finding the best practice of edge routing with docker swarm &amp; traefik.
 
-## Run
+## Status
 
-* http://localhost
+The structure is changed for each directory.
 
-```
-docker compose -p router -f compose.http.yaml up -d
-```
+### file-swarm 
 
+Use File provider and Swarm provider.
 
-* https://localhost
+Run a standalone docker container with file provider to proxy swarm overlay network.
 
-```
-docker compose -p router -f compose.https.yaml up -d
-```
+### swarm-only (wip)
 
-* https://localhost (basic auth)
+Use Swarm provider only.
 
-```
-docker compose -p router \
-  -f compose.https.yaml up \
-  -f basic-auth/compose.dashboard.yaml -d
-```
+Swarm cluster include traefik container routing all service.
 
-## Init
-
-* Docker (Swarm mode)
-  * `docker swarm init`
-* Traefik V3
-  * create shared net
-
-    ```
-    docker network create -d overlay proxy-net --attachable
-    docker network create traefik-public --attachable
-    ```
-
-## Config
-
-`config/traefik.toml` is default config in container `/etc/traefik`
-
-Other settings could see `sample/` this repo. 
+Work in progress but this structure may not work in traefik V3 yet...
